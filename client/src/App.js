@@ -5,6 +5,7 @@ import Home from './components/Home/Home';
 import Nav from './components/Nav/Nav';
 import LandPag from './components/Landing Page/LandingPage';
 import CreatePokemon from './components/CreatePokemon/CreatePokemon';
+import PokemonDetail from './components/PokemonDetail/PokemonDetail';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route exact path='/create-pokemon'>
         <CreatePokemon />
       </Route>
+      <Route exact path='/details/:id' component={PokemonDetail} />
     </div>
   );
 }

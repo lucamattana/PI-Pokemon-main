@@ -47,7 +47,9 @@ const pokemonFromApi = async () => {
                     defense: p.data.stats[2].base_stat,
                     speed: p.data.stats[5].base_stat,
                     height: p.data.height,
-                    weight: p.data.weigth
+                    weight: p.data.weigth,
+                    types: p.data.types.map(t => t.type.name),
+                    image: p.data.sprites.front_default
                 })
             })
             return pokemonArr;
@@ -91,7 +93,9 @@ const pokemonById = async (id) => { //pasandole por parametro el id traigo el po
             defense: pokemonIdApi.data.stats[2].base_stat,
             speed: pokemonIdApi.data.stats[5].base_stat,
             height: pokemonIdApi.data.height,
-            weight: pokemonIdApi.data.weight
+            weight: pokemonIdApi.data.weight,
+            types: pokemonIdApi.data.types.map(t => t.type.name),
+            image: pokemonIdApi.data.sprites.front_default
         }
     }
 
@@ -113,7 +117,10 @@ const pokemonByName = async (name) => {
         defense: nameApi.data.stats[2].base_stat,
         speed: nameApi.data.stats[5].base_stat,
         height: nameApi.data.height,
-        weight: nameApi.data.weigth
+        weight: nameApi.data.weigth,
+        types: nameApi.data.types.map(t => t.type.name),
+        image: nameApi.data.sprites.front_default
+        
     }
 
     const nameDb = await Pokemon.findAll({
@@ -130,7 +137,7 @@ const getType = async () => {
     ]
     const typeUrl = api.map(type => {return axios(type.url)})
 
-    return Promise.all(typeUrl).then(r => { // por cada pokemon pusheo al arr que hice arriba solamente los elementos que necesito.
+    return Promise.all(typeUrl).then(r => {
         r.forEach(p => {
                 typeArr.push({
                     id: p.data.id,
