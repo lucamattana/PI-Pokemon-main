@@ -1,6 +1,7 @@
 import React, {useEffect }from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions'
+import { Link } from "react-router-dom";
 
 const PokemonDetail = (props) => {
     const dispatch = useDispatch()
@@ -14,6 +15,9 @@ const PokemonDetail = (props) => {
 
     return (
         <div className="detail">
+            <Link to='/home'>
+            <button>Back</button>
+            </Link>
             <h3>Details</h3>
             <img src={pokemon.image} alt='no hay foto'></img>
             <p>{pokemon.name}</p>

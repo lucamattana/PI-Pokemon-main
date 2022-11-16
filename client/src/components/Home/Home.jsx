@@ -11,6 +11,7 @@ const Home = (props) => {
         dispatch(actions.getAllPokemons())
     },[dispatch])
   const pokemons = useSelector(state=> state.pokemons)
+  console.log(pokemons)
 //   console.log(pokemons)
     return (
         <div className="Home">
@@ -27,7 +28,7 @@ const Home = (props) => {
                         image={pokemons.image}
                         />
                 )}
-                )}
+            )}
         
         </div>
     )
