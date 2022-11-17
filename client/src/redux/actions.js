@@ -37,14 +37,11 @@ export const getPokemonById = (id) => dispatch => {
     });
 };
 
-export const getPokemonByName = (name) => dispatch => {
-    fetch(`http://localhost:3001/pokemons/${name}`)
-    .then(response => response.json())
-    .then(obj => {
-        dispatch({
-            type: GET_POKEMONS_BY_NAME, payload: obj
-     });
-    });
+export const getPokemonByName = (name) => {
+    return async function (dispatch) {
+        const pokesByName = await axios.get(`http://localhost:3001/pokemons?name=${name}`)
+        return dispatch ({type: GET_POKEMONS_BY_NAME, payload: pokesByName.data})
+    }
 }
 
 export const createPokemon = (values) => {

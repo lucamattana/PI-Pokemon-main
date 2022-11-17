@@ -1,10 +1,26 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import * as actions from "../../redux/actions";
 
+// const validate = (form) => {
+//   // let error = {};
 
+//   // if(!form.name && form.name === Number) {
+//   //   error.name = 'Name is required'
+//   // }
+// }
 
 const CreatePokemon = () => {
+  const dispatch = useDispatch()
+  
+    useEffect( () => {
+      dispatch(actions.getTypes())
+    },[dispatch]
+    )
+    const types = useSelector(state => state.types)
+
+
    const [form, setForm] = useState({
     "name": "",
     "hp": 0,
@@ -16,14 +32,21 @@ const CreatePokemon = () => {
     "types": []
    })
 
+  //  const [error, setError] = useState({});
+
    const handleChange = (e) => {
     setForm({
         ...form,
         [e.target.name]:e.target.value
     })
   }
+  const handleSelect = (e) => {
+    setForm({
+      ...form,
+      types: [...form.types, e.target.value]
+    })
+  }
 
-  const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,6 +55,9 @@ const CreatePokemon = () => {
 
   return (
     <div>
+      <Link to='/home'>
+        <button>Back to Home</button>
+      </Link>
       <form onSubmit={handleSubmit}>
         <label>Name: </label>
         <input type='text' name='name' onChange={handleChange} />
@@ -55,8 +81,13 @@ const CreatePokemon = () => {
         <input type='number' name='weight' onChange={handleChange} />
         <hr></hr>
         <label>Types: </label>
-        <input type='object' name='types' onChange={handleChange} />
-        <button type="submit">Create Pokemon</button>
+        <select name='types' onChange={handleSelect}>
+          {types && types.map(t => (<option value={t.name}>{t.name}</option>))}
+        </select>
+        {/* <ul>
+          {types && types.map()}
+        </ul> */}
+        <button type="submit" >Create Pokemon</button>
       </form>
     </div>
   );

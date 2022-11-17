@@ -6,7 +6,7 @@ const { createPokemon, allPokemons, pokemonById, pokemonByName } = require('./Co
 const pokemonRouter = Router();
 
 pokemonRouter.get('/', async (req, res) => {
-    const {name} = req.query
+    const { name } = req.query
 
     try {
 
@@ -21,7 +21,7 @@ pokemonRouter.get('/', async (req, res) => {
         }
   } catch (error) {
     console.log(error)
-    return res.status(404).json({message: 'Error'})
+    return res.status(404).json({message: 'Error: Ese pokemon no existe'})
   }
 })
 

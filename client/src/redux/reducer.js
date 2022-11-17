@@ -2,7 +2,8 @@ import { GET_ALL_POKEMONS, GET_TYPES, GET_POKEMONS_BY_ID, GET_POKEMONS_BY_NAME, 
 
 const initialState = {
     pokemons: [],
-    pokemonDetail: {}
+    pokemonDetail: {},
+    types: []
 }
 
 const rootReducer = (state = initialState, action) => {

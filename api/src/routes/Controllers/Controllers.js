@@ -109,46 +109,48 @@ const pokemonByName = async (name) => {
     //buscar todos los pokemones de db por findAll where
     // concatenar las respuestas
 
-    const nameApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-    api = {
-        id: nameApi.data.id,
-        name: nameApi.data.name,
-        hp: nameApi.data.stats[0].base_stat,
-        attack: nameApi.data.stats[1].base_stat,
-        defense: nameApi.data.stats[2].base_stat,
-        speed: nameApi.data.stats[5].base_stat,
-        height: nameApi.data.height,
-        weight: nameApi.data.weigth,
-        types: nameApi.data.types.map(t => t.type.name),
-        image: nameApi.data.sprites.front_default
-        
-    }
+    const all = await allPokemons()
 
-    const nameDb = await Pokemon.findAll({
-        where: {name}
-    })
-    return nameDb.concat(api);
+    const find = all?.filter(e => e.name.toLowerCase() === name.toLowerCase())
+
+    return find;
+
+    // const nameApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+    // api = {
+    //     id: nameApi.data.id,
+    //     name: nameApi.data.name,
+    //     hp: nameApi.data.stats[0].base_stat,
+    //     attack: nameApi.data.stats[1].base_stat,
+    //     defense: nameApi.data.stats[2].base_stat,
+    //     speed: nameApi.data.stats[5].base_stat,
+    //     height: nameApi.data.height,
+    //     weight: nameApi.data.weigth,
+    //     types: nameApi.data.types.map(t => t.type.name),
+    //     image: nameApi.data.sprites.front_default
+        
+    // }
+
+    // const nameDb = await Pokemon.findAll({
+    //     where: {name}
+    // })
+    // return nameDb.concat(api);
 }
 
 const getType = async () => {
-    const typeArr = []
+    let typeArr = []
     const apiTypes = await axios.get('https://pokeapi.co/api/v2/type')
-    api = [
-        ...apiTypes.data.results
-    ]
-    const typeUrl = api.map(type => {return axios(type.url)})
-
-    return Promise.all(typeUrl).then(r => {
-        r.forEach(p => {
-                typeArr.push({
-                    id: p.data.id,
-                    name: p.data.name,
-                })
-            })
-            return typeArr;
+    .then(response => response.data)
+    apiTypes.results.forEach(t =>{
+        typeArr.push({
+            name: t.name,
+        })
+    })
+    typeArr.forEach(t => {Type.findOrCreate({
+        where: {
+            name: t.name
         }
-    )
-
+    })})
+    return typeArr
 }
 
 
