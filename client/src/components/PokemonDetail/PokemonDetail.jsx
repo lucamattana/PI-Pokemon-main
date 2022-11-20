@@ -12,7 +12,7 @@ const PokemonDetail = (props) => {
             dispatch(actions.getPokemonById(props.match.params.id))
         },[dispatch, props.match.params.id])
 
-
+console.log(pokemon)
     return (
         <div className="detail">
             <Link to='/home'>
