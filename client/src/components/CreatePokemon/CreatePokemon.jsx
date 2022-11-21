@@ -43,8 +43,8 @@ const CreatePokemon = () => {
     let error = {};
    if (!form.name) {
     error.name = 'Name is required'
-    } else if (!/^[a-zA-Z]+$/.test(form.name)) {
-      error.name = 'Name can only contain letters'
+    } else if (!/^[a-z]+$/.test(form.name)) {
+      error.name = 'Name can only contain lowercase letters'
     }
   
     if (!form.hp) {
@@ -70,11 +70,10 @@ const CreatePokemon = () => {
     if (!form.weight) {
       error.weight = 'Weight value is required'
     }
-  
-    if (isChecked) { // no esta funcionando como intended.
+
+    if (form.types.length === 0) { // no esta funcionando como intended.
       error.types = 'Select at least one type'
     }
-    console.log(error)
     return error;
   }
   
@@ -94,10 +93,9 @@ const CreatePokemon = () => {
     })
     setError(validate({
       ...form,
-      [e.target.name] : e.target.value
+      types : [...updatedList]
     }))
   }
-  
   const isChecked = (item) =>
   checked.includes(item) ? "checked-item" : "not-checked-item";
   
@@ -110,7 +108,7 @@ const CreatePokemon = () => {
     e.preventDefault();
     dispatch(actions.createPokemon(form))
   }
-  
+
   return (
     <div>
       <Link to='/home'>

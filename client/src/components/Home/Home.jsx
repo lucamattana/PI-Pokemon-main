@@ -5,7 +5,7 @@ import * as actions from '../../redux/actions';
 import PokemonCard from "../PokemonCard/PokemonCard";
 
 const Home = (props) => {
-    
+  
   const dispatch = useDispatch()
     
   useEffect(()=>{
@@ -20,63 +20,27 @@ const Home = (props) => {
   const types = useSelector(state => state.types)
   const pokemons = useSelector(state=> state.pokemons)
   
-  const [order, setOrder] = useState('');
+  const [, setOrder] = useState('');
 
   const handlerFilterCreated = (e) => {
-      if (e.target.value === "All") {
-        setOrder(pokemons)
-    }
-      else if(e.target.value === "Created by You") {
-       console.log(pokemons.filter(p => p.id.length > 5))
-       setOrder(pokemons.filter(p => p.id.length > 5))
-    } 
-      else if (e.target.value === "From Api") {
-      console.log(pokemons.filter(p => typeof(p.id) === "number"))
-      setOrder(pokemons.filter(p => typeof(p.id) === "number"))
-      }
-      e.preventDefault()
-      dispatch(handlerFilterCreated(order))
+     setOrder(dispatch(actions.FilterCreated(e.target.value)))
   }
 
   const handlerFilterTypes = (e) => {
-    if (e.target.value === "All") {
-      console.log(pokemons)
-  } else {
-    console.log(pokemons.filter(p => p.types.includes(e.target.value)))
-  }
+    setOrder(dispatch(actions.filterTypes(e.target.value)))
   }
 
   const handlerAZ = (e) => {
-    if (e.target.value === "--") {
-      console.log(pokemons)
-      
-    }
-    else if(e.target.value === "A-Z") {
-      const strAscending = [...pokemons].sort((a, b) =>
-      a.name > b.name ? 1 : -1,
-    );
-    console.log(strAscending)
-    } 
-    else if (e.target.value === "Z-A") {
-      const strDescending = [...pokemons].sort((a, b) =>
-    a.name > b.name ? -1 : 1,
-    );
-    console.log(strDescending);
-    }
+    setOrder(dispatch(actions.filterAZ(e.target.value)))
   }
 
   const handlerAttack = (e) => {
-    if (e.target.value === "--") {
-      console.log(pokemons)
-    }
-    else if(e.target.value === "Ascending") {
-      const numAscending = [...pokemons].sort((a, b) => a.attack - b.attack);
-      console.log(numAscending);
-    } 
-    else if (e.target.value === "Descending") {
-        const numDescending = [...pokemons].sort((a, b) => b.attack - a.attack);
-        console.log(numDescending);
-    }
+   setOrder(dispatch(actions.filterAttack(e.target.value)))
+  }
+
+  const handleClear = (e) => {
+    setOrder(dispatch(actions.getAllPokemons()))
+    document.querySelectorAll('option').forEach(option => option.selected = false);
   }
   
   const [name, setName] = useState("")
@@ -86,8 +50,13 @@ const Home = (props) => {
   const handlerSumbit = (event) => {
     event.preventDefault()
     dispatch(actions.getPokemonByName(name))
+    setName('')
   }
   // console.log(pokemons)
+
+
+
+
     return (
         <div className="Home">
             <h1>Home</h1>
@@ -119,6 +88,7 @@ const Home = (props) => {
               <option value="Ascending">Ascending</option>
               <option value="Descending">Descending</option>
             </select>
+            <button onClick={handleClear}>Clear Filters</button>
             {/* <button name="sortAZ" onClick={handlerAZ}></button> */}
             {/* <button name="sortAttack" onClick={handlerAttack}></button> */}
             <hr />
@@ -129,11 +99,12 @@ const Home = (props) => {
                         <PokemonCard
                         id={pokemons.id}
                         name={pokemons.name}
-                        types={pokemons.types}
+                        types={pokemons.types || (pokemons.Types && pokemons.Types.map(type => type.name))}
                         image={pokemons.image}
                         />
                 )}
             )}
+          
         
         </div>
     )

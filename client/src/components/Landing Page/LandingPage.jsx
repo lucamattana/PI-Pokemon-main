@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./LandingPage.css";
 
 const LandPag = (props) => {
 
     return (
         <div>
-            <h1>This is the Landing Page</h1>
+            <h1 className="Title">This is the Landing Page</h1>
             
             <Link to='/home'>
-                <button>Home</button>
+                <button className="Button">Home</button>
             </Link>
             
         </div>

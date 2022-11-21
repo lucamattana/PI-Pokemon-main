@@ -16,8 +16,18 @@ const createPokemon = async (name, hp, attack, defense, speed, height, weight, t
             speed,
             height,
             weight,
-            types
         }) 
+
+        // Finds the Types linked
+        let typeDb = await Type.findAll({
+            where: {
+                name: types
+            }
+        });
+    
+        // Links the Types to the Pokémon created
+        newPokemon.addType(typeDb);
+        
         return newPokemon;
 
 }
@@ -62,7 +72,15 @@ const pokemonFromApi = async () => {
 
 const pokemonFromDb = async () => { // simplemente traigo todos los pokemones que fueron creados en la db
 
-    const dbPokemons = await Pokemon.findAll()
+    const dbPokemons = await Pokemon.findAll({
+        include: [{
+            model: Type,
+            atributes: ["name"],
+            through: {
+                atributes: [],
+            },
+        }],
+    });
 
     return dbPokemons;
 }
@@ -82,7 +100,14 @@ const allPokemons = async () => { // concateno el arr de db y el de api en uno p
 const pokemonById = async (id) => { //pasandole por parametro el id traigo el pokemon de ese id
     
     if (id.length > 5){
-        const pokemonIdDb = await Pokemon.findByPk(id)
+        const pokemonIdDb = await Pokemon.findByPk(id, 
+           { include : [{
+            model: Type,
+            atributes: ["name"],
+            through: {
+                atributes: []
+            }
+        }]})
         return pokemonIdDb;
     } else {
         const pokemonIdApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)

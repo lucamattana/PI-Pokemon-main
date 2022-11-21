@@ -28,7 +28,7 @@ console.log(pokemon)
             <p>Speed: {pokemon.speed}</p>
             <p>Height: {pokemon.height}</p>
             <p>Weight: {pokemon.weight}</p>
-            <p>Types: {pokemon.types && pokemon.types.join(', ')}</p>
+            <p>Types: {(pokemon.types && pokemon.types.join(', ')) || (pokemon.Types && pokemon.Types.map(type => type.name + ', '))}</p>
         </div>
     )
 } 

@@ -5,6 +5,10 @@ export const GET_TYPES = 'GET_TYPES';
 export const GET_POKEMONS_BY_ID = 'GET_POKEMONS_BY_ID';
 export const GET_POKEMONS_BY_NAME = 'GET_POKEMONS_BY_NAME';
 export const CREATE_POKEMON = 'CREATE_POKEMON';
+export const FILTER_CREATED = 'FILTER_CREATED';
+export const FILTER_AZ = 'FILTER_AZ';
+export const FITLER_TYPE = 'FITLER_TYPE';
+export const FILTER_ATTACK = 'FILTER_ATTACK';
 
 
 export const getAllPokemons = () => dispatch => {
@@ -50,4 +54,20 @@ export const createPokemon = (values) => {
         console.log(values)
         return dispatch ({type: CREATE_POKEMON, payload: newPokemon.data})
     }
+}
+
+export const FilterCreated = (payload) => {
+   return {type: FILTER_CREATED, payload}
+}
+
+export const filterAZ = (payload) => {
+    return {type: FILTER_AZ, payload}
+}
+
+export const filterTypes = (payload) => {
+    return {type: FITLER_TYPE, payload}
+}
+
+export const filterAttack = (payload) => {
+    return {type: FILTER_ATTACK, payload}
 }

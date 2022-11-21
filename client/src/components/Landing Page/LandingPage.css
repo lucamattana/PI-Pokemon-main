@@ -1,0 +1,20 @@
+.LandPag {
+    text-align: center;
+    background-color: rgb(243, 233, 221);
+}
+
+.Title {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 250px;
+    flex-direction:column;
+    font:bold;
+}
+
+.Button {
+    box-sizing: content-box;
+    box-shadow: inset;
+    font-size: large;
+    border-color: blueviolet;
+}
