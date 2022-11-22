@@ -50,8 +50,9 @@ export const getPokemonByName = (name) => {
 
 export const createPokemon = (values) => {
     return async function (dispatch) {
-    const newPokemon = await axios.post('http://localhost:3001/pokemons', values)
-        console.log(values)
+    const newPokemon = await axios.post('http://localhost:3001/pokemons', values).catch(error => alert(error.response.data))
+        // if(newPokemon.data) alert('New Pokemon created successfully')
+        // console.log(values)
         return dispatch ({type: CREATE_POKEMON, payload: newPokemon.data})
     }
 }

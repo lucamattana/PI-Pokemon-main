@@ -42,15 +42,7 @@ const rootReducer = (state = initialState, action) => {
             })
         }
         case FILTER_CREATED: 
-        
-            if (action.payload === "All") {
-                console.log(state.allPokemons)
-                return {
-                    ...state,
-                    pokemons: state.allPokemons
-                }
-            }
-            else if(action.payload === "Created by You") {
+            if(action.payload === "Created by You") {
                 console.log(state.allPokemons.filter(p => p.id.length > 5))
                 return {
                     ...state,
@@ -71,14 +63,7 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case FILTER_AZ:
-            if (action.payload === "--") {
-                console.log(state.pokemons)
-                return {
-                    ...state,
-                    pokemons: state.pokemons
-                }
-              }
-              else if(action.payload === "A-Z") {
+            if(action.payload === "A-Z") {
                 return {
                     ...state,
                     pokemons: state.pokemons.sort((a, b) =>
@@ -106,19 +91,16 @@ const rootReducer = (state = initialState, action) => {
             }
             
         } else {
+            // console.log(state.allPokemons)
+            // console.log(state.allPokemons.types)
+            // p.types && p.types.includes(action.payload)
             return {
                 ...state,
-                pokemons: state.allPokemons.filter(p => p.types && p.types.includes(action.payload))
+                pokemons: state.allPokemons.filter(p => (p.types && p.types.includes(action.payload)) || (p.Types && p.Types.map(t=> t.name).includes(action.payload)))
             }
         }
         case FILTER_ATTACK:
-            if (action.payload === "--") {
-                return {
-                    ...state,
-                    pokemons: state.pokemons
-                }
-              }
-              else if(action.payload === "Ascending") {
+            if(action.payload === "Ascending") {
                 return {
                     ...state,
                     pokemons : state.pokemons.sort((a, b) => a.attack - b.attack)

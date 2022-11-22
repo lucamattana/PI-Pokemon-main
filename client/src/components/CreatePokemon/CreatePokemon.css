@@ -1,0 +1,91 @@
+.form-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.button-back-form{
+    border-radius: 8px;
+    background-color: #fffc64f0;
+    color: rgba(19, 19, 229, 0.84);
+    border-color: rgba(0, 0, 0, 0.81);
+    margin-top: 45px;
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 15px;
+    font-weight: 520;
+    width: fit-content;
+    cursor: pointer;
+    transition: 0.5s;
+    height: fit-content;
+}
+
+.button-back-form:hover {
+    background-color:rgba(19, 19, 229, 0.84);
+    color: #fffc64ff;
+}
+
+.form {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    backdrop-filter: blur(3px);
+    width: 450px;
+    height: fit-content;
+    border-radius: 10px;
+    border-style: solid;
+}
+
+.inputs-label-form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.inputs-form {
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(178, 160, 203);
+    background-color: rgba(191, 167, 225, 0.396);
+
+}
+
+.checklist-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+    border-color: rgb(178, 160, 203);
+    background-color: rgba(191, 167, 225, 0.396);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+.submit-form{
+    border-radius: 8px;
+    background-color: #fffc64f0;
+    color: rgba(19, 19, 229, 0.84);
+    border-color: rgba(0, 0, 0, 0.81);
+    padding: 5px;
+    margin: 5px;
+    font-size: 15px;
+    font-weight: 520;
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.submit-form:hover {
+    background-color:rgba(19, 19, 229, 0.84);
+    color: #fffc64ff;
+}
+
+button:disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}

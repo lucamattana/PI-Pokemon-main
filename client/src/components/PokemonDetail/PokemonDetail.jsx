@@ -1,7 +1,8 @@
 import React, {useEffect }from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions'
-import { Link } from "react-router-dom";
+import './PokemonDetail.css'
+
 
 const PokemonDetail = (props) => {
     const dispatch = useDispatch()
@@ -14,13 +15,12 @@ const PokemonDetail = (props) => {
 
 console.log(pokemon)
     return (
-        <div className="detail">
-            <Link to='/home'>
-            <button>Back</button>
-            </Link>
-            <h3>Details</h3>
-            <img src={pokemon.image} alt='no hay foto'></img>
-            <p>{pokemon.name}</p>
+        <div className="detail-page-container">
+            <h3 className="title-detail">Details</h3>
+        <div className="detail-container">
+            <img className='img-detail' src={pokemon.image} alt='Pokemon' width="250px" height="250px"></img>
+            <div className="details">
+            <p className="name-detail">{pokemon.name}</p>
             <p>id: {pokemon.id}</p>
             <p>hp: {pokemon.hp}</p>
             <p>Attack: {pokemon.attack}</p>
@@ -29,6 +29,8 @@ console.log(pokemon)
             <p>Height: {pokemon.height}</p>
             <p>Weight: {pokemon.weight}</p>
             <p>Types: {(pokemon.types && pokemon.types.join(', ')) || (pokemon.Types && pokemon.Types.map(type => type.name + ', '))}</p>
+        </div>
+        </div>
         </div>
     )
 } 

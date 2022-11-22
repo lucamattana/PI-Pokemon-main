@@ -36,6 +36,11 @@ module.exports = (sequelize) => {
     weight: {
       type:DataTypes.INTEGER,
       
+    },
+    image: {
+      type:DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'https://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/ef680c30a573972.png'
     }
   },
   {

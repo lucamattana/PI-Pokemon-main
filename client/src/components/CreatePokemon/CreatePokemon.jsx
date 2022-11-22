@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../redux/actions";
+import './CreatePokemon.css'
 
 
 
@@ -99,54 +100,64 @@ const CreatePokemon = () => {
   const isChecked = (item) =>
   checked.includes(item) ? "checked-item" : "not-checked-item";
   
-  const checkedItems = checked.length
-  ? checked.reduce((total, item) => {
-    return total + ', ' + item;
-  })
-  : '';
   const handleSubmit = (e) => {
-    e.preventDefault();
     dispatch(actions.createPokemon(form))
+    // e.preventDefault();
+    // e.target.reset()
+    // setForm({
+    //   "name": "",
+    //   "hp": 0,
+    //   "attack": 0,
+    //   "defense": 0,
+    //   "speed": 0,
+    //   "height": 0,
+    //   "weight": 0,
+    //   "types": []
+    // })
   }
 
   return (
-    <div>
+    <div className="all-form-container">
       <Link to='/home'>
-        <button>Back to Home</button>
+        <button className="button-back-form">{`< Back`}</button>
       </Link>
-      <form onSubmit={handleSubmit}>
+    <div className="form-container">
+      <form className="form" onSubmit={handleSubmit}>
+      <div className="inputs-label-form">
         <label>Name: </label>
-        <input type='text' name='name' onChange={handleChange} />
-        {error.name && (<p>{error.name}</p>)}
-        <hr></hr>
+        <input className="inputs-form" type='text' name='name' onChange={handleChange} />
+        {error.name && (<p style={{color: 'rgb(222, 15, 15)'}}>{error.name}</p>)}
+        <hr style={{borderStyle: 'none'}}/>
         <label>hp: </label>
-        <input type='number' name='hp' onChange={handleChange} />
-        {error.hp && (<p>{error.hp}</p>)}
-        <hr></hr>
+        <input className="inputs-form" type='number' name='hp' onChange={handleChange} />
+        {error.hp && (<p style={{color: 'rgb(222, 15, 15)'}}>{error.hp}</p>)}
+        <hr style={{borderStyle: 'none'}}/>
         <label>Attack: </label>
-        <input type='number' name='attack' onChange={handleChange} />
-        {error.attack && (<p>{error.attack}</p>)}
-        <hr></hr>
+        <input className="inputs-form" type='number' name='attack' onChange={handleChange} />
+        {error.attack && (<p style={{color: 'rgb(222, 15, 15)'}}>{error.attack}</p>)}
+        <hr style={{borderStyle: 'none'}}/>
         <label>Defense: </label>
-        <input type='number' name='defense' onChange={handleChange} />
-        {error.defense && (<p>{error.defense}</p>)}
-        <hr></hr>
+        <input className="inputs-form" type='number' name='defense' onChange={handleChange} />
+        {error.defense && (<p style={{color: 'rgb(222, 15, 15)'}}>{error.defense}</p>)}
+        <hr style={{borderStyle: 'none'}}/>
         <label>Speed: </label>
-        <input type='number' name='speed' onChange={handleChange} />
-        {error.speed && (<p>{error.speed}</p>)}
-        <hr></hr>
+        <input className="inputs-form" type='number' name='speed' onChange={handleChange} />
+        {error.speed && (<p style={{color: 'rgb(222, 15, 15)'}}>{error.speed}</p>)}
+        <hr style={{borderStyle: 'none'}}/>
         <label>Height: </label>
-        <input type='number' name='height' onChange={handleChange} />
-        {error.height && (<p>{error.height}</p>)}
-        <hr></hr>
+        <input className="inputs-form" type='number' name='height' onChange={handleChange} />
+        {error.height && (<p style={{color: 'rgb(222, 15, 15)'}}>{error.height}</p>)}
+        <hr style={{borderStyle: 'none'}}/>
         <label>Weight: </label>
-        <input type='number' name='weight' onChange={handleChange} />
-        {error.weight && (<p>{error.weight}</p>)}
-        <hr></hr>
-        <div className="checkList">
+        <input className="inputs-form" type='number' name='weight' onChange={handleChange} />
+        {error.weight && (<p style={{color: 'rgb(222, 15, 15)'}}>{error.weight}</p>)}
+        <hr style={{borderStyle: 'none'}}/>
+      </div>
+
+        <div className="checklist-form">
           <div>Types: </div>
-            {error.types && (<p>{error.types}</p>)}
-          <div className="listContainer">
+            {error.types && (<p style={{color: 'rgb(222, 15, 15)'}}>{error.types}</p>)}
+          <div className="list-container-form">
             {types && types.map((item, index) => (
               <div key={index}>
                 <input value={item.name} type="checkbox" onChange={handleCheck} />
@@ -155,14 +166,11 @@ const CreatePokemon = () => {
             ))}
           </div>
         </div>
-        <div>
-          {`Checked types are: ${checkedItems}`}
-        </div>
-        
-        <button type="submit" 
-        disabled={error.name || error.hp || error.attack || error.defense || error.speed || error.height || error.weight}
+        <button className="submit-form" type="submit"
+        disabled={!form.name || error.name || error.hp || error.attack || error.defense || error.speed || error.height || error.weight || error.types}
         >Create Pokemon</button>
       </form>
+    </div>
     </div>
   );
 }

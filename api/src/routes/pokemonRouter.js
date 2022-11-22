@@ -1,3 +1,4 @@
+const {Pokemon} = require('../db')
 const { Router } = require('express');
 const { createPokemon, allPokemons, pokemonById, pokemonByName } = require('./Controllers/Controllers');
 
@@ -42,12 +43,17 @@ pokemonRouter.get('/:id', async (req, res) => {
 pokemonRouter.post('/', async (req, res) => {
     try {
         const { name, hp, attack, defense, speed, height, weight, types} = req.body
+        
+        const exists = await Pokemon.findOne({
+            where: {name}
+        })
+        if(exists) return res.status(400).send('A Pokemon with that name already exists')
+       
+        const newPokemon = await createPokemon(name, hp, attack, defense, speed, height, weight, types)
 
-       const newPokemon = await createPokemon(name, hp, attack, defense, speed, height, weight, types)
-
-       return res.status(200).json(newPokemon)
+       return res.status(200).json(newPokemon, 'New Pokemon created successfully')
     } catch (error) {
-        return res.status(404).send({message: 'Error'})
+        return res.status(404).send(error.message)
     }
 })
 

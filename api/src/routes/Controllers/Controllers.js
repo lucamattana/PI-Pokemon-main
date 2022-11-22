@@ -6,7 +6,7 @@ const { UUID } = require('sequelize')
 
 
 //------------ crea un pokemon en la db -------
-const createPokemon = async (name, hp, attack, defense, speed, height, weight, types) => { // paso los parametros que eventualmente van a venir de forms
+const createPokemon = async (name, hp, attack, defense, speed, height, weight, types, image) => { // paso los parametros que eventualmente van a venir de forms
 
     const newPokemon = await Pokemon.create({ //usando el model de pokemon creo uno nuevo y lo devuelvo
             name,
@@ -16,6 +16,7 @@ const createPokemon = async (name, hp, attack, defense, speed, height, weight, t
             speed,
             height,
             weight,
+            image
         }) 
 
         // Finds the Types linked

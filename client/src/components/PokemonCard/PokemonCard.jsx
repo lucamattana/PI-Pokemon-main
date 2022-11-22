@@ -1,23 +1,23 @@
 import React from "react";
-// import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-// import * as actions from '../../redux/actions'
-import './PokemonCard.css'
-
+import './PokemonCard.css';
 
 const PokemonCard = (props) => {
     
-    
+   
+    // console.log(props)
     return (
-        <>
+        <div className="outside-card">
+        <div className='inside-card'>
         <NavLink to={`/details/${props.id}`}>
-        <div className="card">
-            <img src={props.image} alt='no hay foto'></img>
-            <p>{props.name}</p>
-            <p>Types: {(props.types && props.types.join(', '))}</p>
+        <div>
+            <img src={props.image} alt='Pokemon' width="96px" height="96px"></img>
+            <p className='card-name'>{props.name}</p>
+            <p className='card-types'>Types: {(props.types && props.types.join(', '))}</p>
         </div>
         </NavLink>
-        </>
+        </div>
+        </div>
     )
 } 
 
